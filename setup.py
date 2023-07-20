@@ -10,5 +10,7 @@ setuptools.setup(
     url="https://github.com/Julynx/string_grab",
     description=("Extract one or multiple substrings"
                  "between two start and end strings."),
+    long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
     license="GPLv2",
     packages=["string_grab"])
