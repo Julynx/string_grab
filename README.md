@@ -26,3 +26,16 @@ for number in grab_all(text, start="Mobile: ", end="\n"):
 >> "715-523-1076"
 >> "715-563-3967"
 ```
+```python
+from string_grab import inject
+
+inject(text, "611 Waterwheel Ln", start="Street: ", end="\n")
+
+>> """Gender: female
+   Race: White
+   Birthday: 3/23/1973 (50 years old)
+   Mobile: 715-523-1076
+   Mobile: 715-563-3967
+   Street: 611 Waterwheel Ln
+   City, State, Zip: Eau Claire, Wisconsin(WI), 54701"""
+```
