@@ -12,10 +12,10 @@ text = """Gender: female
 ```python
 from string_grab import grab
 
-birthday = grab(text, start="Birthday: ", end="\n")
+birthday = grab(text, start="Birthday: ", end=" (")
 print(birthday)
 
->> "3/23/1973 (50 years old)"
+>> "3/23/1973"
 ```
 ```python
 from string_grab import grab_all
