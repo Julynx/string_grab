@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="string_grab",
-    version="0.0.5",
+    version="1.0.0",
     author="Julio Cabria",
     author_email="juliocabria@tutanota.com",
     maintainer="Julio Cabria",

@@ -28,14 +28,14 @@ def grab(text, *, start, end):
     """
     _validate_args(func_name="grab", args_dict=locals(), expects=str)
 
-    len_start = len(start)
-    start_index = text.find(start)
-    end_index = text.find(end, start_index + len_start)
+    try:
+        parts = text.split(start, 1)[1].split(end, 1)
+        _ = parts[1]  # Raises IndexError if 'end' not in 'text'.
+        return parts[0]
 
-    if -1 in (start_index, end_index):
-        raise LookupError("Could not find 'start' or 'end' in 'text'.")
-
-    return text[start_index + len_start:end_index]
+    except IndexError as index_error:
+        raise LookupError("Could not find 'start' or 'end' in 'text'.") \
+            from index_error
 
 
 def grab_all(text, *, start, end):
@@ -59,18 +59,16 @@ def grab_all(text, *, start, end):
     """
     _validate_args(func_name="grab_all", args_dict=locals(), expects=str)
 
-    len_start = len(start)
-    len_end = len(end)
-
     while True:
-        start_index = text.find(start)
-        end_index = text.find(end, start_index + len_start)
 
-        if -1 in (start_index, end_index):
+        try:
+            text = text.split(start, 1)[1]
+            parts = text.split(end, 1)
+            _ = parts[1]  # Raises IndexError if 'end' not in 'text'.
+            yield parts[0]
+
+        except IndexError:
             return
-
-        yield text[start_index + len_start:end_index]
-        text = text[end_index + len_end:]
 
 
 def _validate_args(*, func_name, args_dict, expects):
