@@ -90,5 +90,5 @@ def _validate_args(*, func_name, args_dict, expects):
         if isinstance(arg_value, expects):
             continue
 
-        raise TypeError(f"{func_name}() expected str for '{arg_name}', "
-                        f"got {type(arg_value).__name__} instead.")
+        raise TypeError(f"{func_name}() expected {expects.__name__} for "
+                        f"'{arg_name}', got {type(arg_value).__name__}.")
