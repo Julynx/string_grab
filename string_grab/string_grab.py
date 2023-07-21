@@ -71,6 +71,35 @@ def grab_all(text, *, start, end):
             return
 
 
+def inject(text, insert, *, start, end):
+    """
+    Inject 'insert' in 'text' between two 'start' and 'end' strings.
+
+    Args:
+        text (str): The base string.
+        insert (str): The string to be injected.
+        start (str): The string before the injection point.
+        end (str): The string after the injection point.
+
+    Returns:
+        str: The 'text' string with the 'insert' string injected.
+
+    Raises:
+        TypeError: If any of the arguments is not a string.
+        LookupError: If the 'start' or 'end' strings are not in 'text'.
+    """
+    _validate_args(func_name="inject", args_dict=locals(), expects=str)
+
+    try:
+        prev_parts = text.split(start, 1)
+        next_parts = prev_parts[1].split(end, 1)
+        return "".join((prev_parts[0], start, insert, end, next_parts[1]))
+
+    except IndexError as index_error:
+        raise LookupError("Could not find 'start' or 'end' in 'text'.") \
+            from index_error
+
+
 def _validate_args(*, func_name, args_dict, expects):
     """
     Raises a TypeError if any of the arguments is not of the expected type.
