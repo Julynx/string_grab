@@ -1,7 +1,7 @@
 """
 @file     grab.py
 @brief    Utils for manipulating strings.
-@date     21/07/2023
+@date     05/09/2023
 @author   Julio Cabria
 """
 
@@ -33,9 +33,67 @@ def grab(text, *, start, end):
         _ = parts[1]  # Raises IndexError if 'end' not in 'text'.
         return parts[0]
 
-    except IndexError as index_error:
+    except (IndexError, ValueError) as error:
         raise LookupError("Could not find 'start' or 'end' in 'text'.") \
-            from index_error
+            from error
+
+
+def grab_until(text, *, end):
+    """
+    Grab a substring from a string until the 'end' string is found.
+
+    Usage:
+        grab_until("Http 200 OK", end=" ")
+        >> "Http"
+
+    Args:
+        text (str): The string to be searched.
+        end (str): The end string.
+
+    Returns:
+        str: The substring until the 'end' string is found.
+
+    Raises:
+        TypeError: If the 'text' or 'end' arguments are not strings.
+        LookupError: If the 'end' string is not in 'text'.
+    """
+    _validate_args(func_name="grab_until", args_dict=locals(), expects=str)
+
+    try:
+        parts = text.split(end, 1)
+        _ = parts[1]  # Raises IndexError if 'end' not in 'text'.
+        return parts[0]
+
+    except (IndexError, ValueError) as error:
+        raise LookupError("Could not find 'end' in 'text'.") from error
+
+
+def grab_after(text, *, start):
+    """
+    Grab a substring from a string after the 'start' string is found.
+
+    Usage:
+        grab_after("Http 200 OK", start=" ")
+        >> "200 OK"
+
+    Args:
+        text (str): The string to be searched.
+        start (str): The start string.
+
+    Returns:
+        str: The substring after the 'start' string is found.
+
+    Raises:
+        TypeError: If the 'text' or 'start' arguments are not strings.
+        LookupError: If the 'start' string is not in 'text'.
+    """
+    _validate_args(func_name="grab_after", args_dict=locals(), expects=str)
+
+    try:
+        return text.split(start, 1)[1]
+
+    except (IndexError, ValueError) as error:
+        raise LookupError("Could not find 'start' in 'text'.") from error
 
 
 def grab_all(text, *, start, end):
@@ -67,7 +125,7 @@ def grab_all(text, *, start, end):
             _ = parts[1]  # Raises IndexError if 'end' not in 'text'.
             yield parts[0]
 
-        except IndexError:
+        except (IndexError, ValueError):
             return
 
 
@@ -95,9 +153,9 @@ def inject(text, insert, *, start, end):
         next_parts = prev_parts[1].split(end, 1)
         return "".join((prev_parts[0], start, insert, end, next_parts[1]))
 
-    except IndexError as index_error:
+    except (IndexError, ValueError) as error:
         raise LookupError("Could not find 'start' or 'end' in 'text'.") \
-            from index_error
+            from error
 
 
 def _validate_args(*, func_name, args_dict, expects):

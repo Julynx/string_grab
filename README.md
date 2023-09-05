@@ -18,6 +18,22 @@ print(birthday)
 >> "3/23/1973"
 ```
 ```python
+from string_grab import grab_until
+
+gender_prompt = grab_until(text, end=" female")
+print(gender_prompt)
+
+>> "Gender:"
+```
+```python
+from string_grab import grab_after
+
+zip_code = grab_after(text, start="Wisconsin(WI), ")
+print(zip_code)
+
+>> "54701"
+```
+```python
 from string_grab import grab_all
 
 for number in grab_all(text, start="Mobile: ", end="\n"):
