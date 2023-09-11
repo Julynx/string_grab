@@ -1,57 +1,132 @@
 # string_grab
-*Extract one or multiple substrings between two start and end strings.*
-```python
-text = """Gender: female
-       Race: White
-       Birthday: 3/23/1973 (50 years old)
-       Mobile: 715-523-1076
-       Mobile: 715-563-3967
-       Street: 4674 Lynn Avenue
-       City, State, Zip: Eau Claire, Wisconsin(WI), 54701"""
-```
+
+Extract one or multiple substrings between two start and end strings.
+
+> *Functions: [grab](#grab), [grab_all](#grab_all), [grab_until](#grab_until), [grab_after](#grab_after), [inject](#inject), [inject_until](#inject_until), [inject_after](#inject_after).*
+
 ```python
 from string_grab import grab
 
-birthday = grab(text, start="Birthday: ", end=" (")
+text = '''Gender: female
+       Race: White
+       Birthday: 3/23/1973
+       Mobile: 715-523-1076
+       Mobile: 715-563-3967
+       Street: 4674 Lynn Avenue
+       City, State, Zip: Eau Claire, Wisconsin(WI), 54701'''
+
+birthday = grab(text, start='Birthday: ', end='\n')
 print(birthday)
 
->> "3/23/1973"
+>> '3/23/1973'
 ```
+
+<br>
+
+# Main functions
+
+## grab
+
+Returns the first substring between two 'start' and 'end' strings.
+
+> *Variants: [grab_all](#grab_all), [grab_until](#grab_until), [grab_after](#grab_after).*
+
 ```python
-from string_grab import grab_until
+grab('John likes apples.',
+     start='John likes ',
+     end='.')
 
-gender_prompt = grab_until(text, end=" female")
-print(gender_prompt)
-
->> "Gender:"
+>> 'apples'
 ```
+
+## inject
+
+Inserts a substring, replacing everything between two 'start' and 'end' strings.
+
+> *Variants: [inject_until](#inject_until), [inject_after](#inject_after).*
+
 ```python
-from string_grab import grab_after
+inject('John likes apples.',
+       'oranges',
+       start='John likes ',
+       end='.')
 
-zip_code = grab_after(text, start="Wisconsin(WI), ")
-print(zip_code)
-
->> "54701"
+>> 'John likes oranges.'
 ```
+
+<br>
+
+# grab variants
+
+## grab_all
+
+Yields all substrings between two 'start' and 'end' strings.
+
+> *See [grab](#grab).*
+
 ```python
-from string_grab import grab_all
+results = grab_all('John likes apples. John likes oranges.',
+                   start='likes ',
+                   end='.')
 
-for number in grab_all(text, start="Mobile: ", end="\n"):
-    print(number)
-
->> "715-523-1076"
->> "715-563-3967"
+list(results)
+>> ['apples', 'oranges']
 ```
+
+## grab_until
+
+Returns everything before the 'end' string.
+
+> *See [grab](#grab).*
+
 ```python
-from string_grab import inject
+grab_until('John likes apples.',
+           end=' likes')
 
-inject(text, "611 Waterwheel Ln", start="Street: ", end="\n")
+>> 'John'
+```
 
->> """Gender: female
-   Race: White
-   Birthday: 3/23/1973 (50 years old)
-   Mobile: 715-523-1076
-   Mobile: 715-563-3967
-   Street: 611 Waterwheel Ln
-   City, State, Zip: Eau Claire, Wisconsin(WI), 54701"""
+## grab_after
+
+Returns everything after the 'start' string.
+
+> *See [grab](#grab).*
+
+```python
+grab_after('John likes apples.',
+           start='likes ')
+
+>> 'apples.'
+```
+
+<br>
+
+# inject variants
+
+## inject_until
+
+Inserts a substring, replacing everything before the 'end' string.
+
+> *See [inject](#inject).*
+
+```python
+inject_until('John likes apples.',
+             'Sarah',
+             end=' likes')
+
+>> 'Sarah likes apples.'
+```
+
+## inject_after
+
+Inserts a substring, replacing everything after the 'start' string.
+
+> *See [inject](#inject).*
+
+```python
+inject_after('Sarah likes apples.',
+             'oranges.',
+             start='likes ')
+
+>> 'Sarah likes oranges.'
 ```

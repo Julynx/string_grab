@@ -1,7 +1,7 @@
 """
 @file     grab.py
 @brief    Utils for manipulating strings.
-@date     05/09/2023
+@date     11/09/2023
 @author   Julio Cabria
 """
 
@@ -156,6 +156,59 @@ def inject(text, insert, *, start, end):
     except (IndexError, ValueError) as error:
         raise LookupError("Could not find 'start' or 'end' in 'text'.") \
             from error
+
+
+def inject_until(text, insert, *, end):
+    """
+    Inject 'insert' in 'text', replacing everything before the 'end' string.
+
+    Args:
+        text (str): The base string.
+        insert (str): The string to be injected.
+        end (str): The string after the injection point.
+
+    Returns:
+        str: The 'text' string with the 'insert' string injected.
+
+    Raises:
+        TypeError: If any of the arguments is not a string.
+        LookupError: If the 'end' string is not in 'text'.
+    """
+    _validate_args(func_name="inject_until", args_dict=locals(), expects=str)
+
+    try:
+        parts = text.split(end, 1)
+        return "".join((insert, end, parts[1]))
+
+    except (IndexError, ValueError) as error:
+        raise LookupError("Could not find 'end' in 'text'.") from error
+
+
+def inject_after(text, insert, *, start):
+    """
+    Inject 'insert' in 'text', replacing everything after the 'start' string.
+
+    Args:
+        text (str): The base string.
+        insert (str): The string to be injected.
+        start (str): The string before the injection point.
+
+    Returns:
+        str: The 'text' string with the 'insert' string injected.
+
+    Raises:
+        TypeError: If any of the arguments is not a string.
+        LookupError: If the 'start' string is not in 'text'.
+    """
+    _validate_args(func_name="inject_after", args_dict=locals(), expects=str)
+
+    try:
+        parts = text.split(start, 1)
+        _ = parts[1]  # Raises IndexError if 'start' not in 'text'.
+        return "".join((parts[0], start, insert))
+
+    except (IndexError, ValueError) as error:
+        raise LookupError("Could not find 'start' in 'text'.") from error
 
 
 def _validate_args(*, func_name, args_dict, expects):
