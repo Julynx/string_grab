@@ -56,7 +56,7 @@ inject('John likes apples.',
 
 <br>
 
-# grab variants
+# [grab](#grab) variants
 
 ## grab_all
 
@@ -101,7 +101,7 @@ grab_after('John likes apples.',
 
 <br>
 
-# inject variants
+# [inject](#inject) variants
 
 ## inject_until
 
