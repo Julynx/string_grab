@@ -22,6 +22,7 @@ print(birthday)
 ```
 
 <br>
+<br>
 
 # Main functions
 
@@ -39,6 +40,8 @@ grab('John likes apples.',
 >> 'apples'
 ```
 
+<br>
+
 ## inject
 
 Inserts a substring, replacing everything between two 'start' and 'end' strings.
@@ -54,6 +57,7 @@ inject('John likes apples.',
 >> 'John likes oranges.'
 ```
 
+<br>
 <br>
 
 # [grab](#grab) variants
@@ -73,6 +77,8 @@ list(results)
 >> ['apples', 'oranges']
 ```
 
+<br>
+
 ## grab_until
 
 Returns everything before the 'end' string.
@@ -85,6 +91,8 @@ grab_until('John likes apples.',
 
 >> 'John'
 ```
+
+<br>
 
 ## grab_after
 
@@ -99,6 +107,7 @@ grab_after('John likes apples.',
 >> 'apples.'
 ```
 
+<br>
 <br>
 
 # [inject](#inject) variants
@@ -116,6 +125,8 @@ inject_until('John likes apples.',
 
 >> 'Sarah likes apples.'
 ```
+
+<br>
 
 ## inject_after
 
