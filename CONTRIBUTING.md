@@ -27,5 +27,5 @@ If you follow this yourself, you will save me a lot of time, which is something 
 ## Code of Conduct
 
 This project and everyone participating in it is governed by the
-[Code of Conduct](blob/master/CODE_OF_CONDUCT.md).
+[Code of Conduct](https://github.com/Julynx/string_grab/blob/main/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code.
